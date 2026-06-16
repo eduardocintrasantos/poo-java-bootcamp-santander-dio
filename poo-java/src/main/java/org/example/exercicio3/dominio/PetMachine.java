@@ -65,45 +65,38 @@ public class PetMachine {
 
     public void setPet(Pet pet) {
         if (!this.clean) {
-            System.out.println("A máquina de banho está suja. Por favor, limpe a máquina antes de adicionar um pet.");
-            return;
+            throw new IllegalStateException("A máquina de banho está suja. Por favor, limpe a máquina antes de adicionar um pet.");
         }
 
         if (hasPet()) {
-            System.out.println("Já existe um pet na máquina. Por favor, remova o pet atual antes de adicionar outro.");
-            return;
+            throw new IllegalStateException("Já existe um pet na máquina. Por favor, remova o pet atual antes de adicionar outro.");
         }
         this.pet = pet;
     }
 
     public void removePet() {
         if (!hasPet()) {
-            System.out.println("Não há nenhum pet na máquina para remover.");
-            return;
-        } else {
-            System.out.println("Pet " + pet.getName() + " removido da máquina.");
-            this.clean = this.pet.isClean();
+            throw new IllegalStateException("Não há nenhum pet na máquina para remover.");
         }
+
+        this.clean = this.pet.isClean();
         this.pet = null;
     }
 
     public void washMachine() {
         if (hasPet()) {
-            System.out.println("Não é possível lavar a máquina com um pet dentro. Por favor, remova o pet antes de lavar a máquina.");
-            return;
+            throw new IllegalStateException("A máquina de banho não pode ser lavada com um pet dentro. Por favor, remova o pet antes de lavar a máquina.");
         }
 
         this.water -= WASH_WATER_COST;
         this.shampoo -= WASH_SHAMPOO_COST;
         this.clean = true;
-        System.out.println("Máquina de banho lavada e limpa!");
     }
 
-    public void getPet() {
+    public Pet getPet() {
         if (!hasPet()) {
-            System.out.println("Não há nenhum pet na máquina.");
-            return;
+            throw new IllegalStateException("Não há nenhum pet na máquina.");
         }
-        System.out.println("O pet " + pet.getName() + " está na máquina de banho.");
+        return pet;
     }
 }
