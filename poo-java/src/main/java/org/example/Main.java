@@ -26,7 +26,7 @@ public class Main {
             switch (escolha) {
                 case 1:
                     System.out.println("Acessando o exercicio 1...");
-                    //Exercicio1.exercicio1();
+                    org.example.exercicio1.ui.Sistema.executar();
                     break;
                 case 2:
                     System.out.println("Acessando o exercicio 2...");
